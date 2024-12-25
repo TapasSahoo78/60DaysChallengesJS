@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        input {
+            margin: 5px;
+            padding: 10px;
+            width: 150px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+
+        h2,
+        h3 {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Random Number Generator</h2>
+    <input type="number" name="" id="minValue" placeholder="Min Value">
+    <input type="number" name="" id="maxValue" placeholder="Max Value">
+    <button onclick="generateRandom()">Generate</button>
+    <h3 id="result"></h3>
+    <script>
+        function generateRandom() {
+            const min = parseInt(document.getElementById('minValue').value);
+            const max = parseInt(document.getElementById('maxValue').value);
+            if (isNaN(min) || isNaN(max) || min > max) {
+                document.getElementById('result').textContent = "Enter valid numbers";
+                return;
+            }
+            const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+            document.getElementById('result').textContent = `Random Number: ${randomNum}`;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Calculator</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        input {
+            margin: 5px;
+            padding: 10px;
+            width: 150px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+
+        h1,
+        h2 {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tip Calculator</h1>
+    <input type="number" name="" id="billAmount" placeholder="Bill Amount">
+    <input type="number" name="" id="tipPercentage" placeholder="Tip %">
+    <button onclick="calculateTip()">Calculate</button>
+    <h2 id="result"></h2>
+    <script>
+        function calculateTip() {
+            const bill = parseFloat(document.getElementById('billAmount').value);
+            const tip = parseFloat(document.getElementById('tipPercentage').value);
+            if (isNaN(bill) || isNaN(tip)) {
+                document.getElementById('result').textContent = "Enter valid numbers";
+                return;
+            }
+            const totalTip = ((bill * tip) / 100).toFixed(2);
+            document.getElementById('result').textContent = `Tip Amount: $${totalTip}`;
+        }
+    </script>
+</body>
+
+</html>
