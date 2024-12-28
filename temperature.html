@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #89f7fe, #66a6ff);
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .converter {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group input {
+            padding: 10px;
+            width: 95%;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .input-group .icon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 1.2rem;
+            pointer-events: none;
+        }
+
+        .select-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        select {
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #ffffff, #e6e6e6);
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        select:hover {
+            background: linear-gradient(135deg, #f0f0f0, #dcdcdc);
+            border: 2px solid #66a6ff;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        select:focus {
+            outline: none;
+            border: 2px solid #ff758c;
+            background: linear-gradient(135deg, #ffffff, #f9f9f9);
+            box-shadow: 0 0 10px rgba(255, 117, 140, 0.6);
+        }
+
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 100, 150, 0.5);
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #ff7eb3, #ff758c);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 100, 150, 0.7);
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        .result h3 {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🌡️ Temperature Converter</h1>
+        <div class="converter">
+            <div class="input-group">
+                <label for="temperature">Enter Temperature:</label>
+                <input type="number" id="temperature" placeholder="Enter value...">
+                <i class="fas fa-thermometer-half icon"></i>
+            </div>
+            <div class="select-group">
+                <select id="from-unit">
+                    <option value="C">Celsius (°C)</option>
+                    <option value="F">Fahrenheit (°F)</option>
+                    <option value="K">Kelvin (K)</option>
+                </select>
+                <span>to</span>
+                <select id="to-unit">
+                    <option value="C">Celsius (°C)</option>
+                    <option value="F">Fahrenheit (°F)</option>
+                    <option value="K">Kelvin (K)</option>
+                </select>
+            </div>
+            <button id="convert-btn">Convert</button>
+            <div class="result">
+                <h3>Result: <span id="result">0</span></h3>
+            </div>
+        </div>
+    </div>
+    <script>
+        const convertButton = document.getElementById('convert-btn');
+        const temperatureInput = document.getElementById('temperature');
+        const fromUnit = document.getElementById('from-unit');
+        const toUnit = document.getElementById('to-unit');
+        const resultDisplay = document.getElementById('result');
+
+        convertButton.addEventListener('click', () => {
+            const temperature = parseFloat(temperatureInput.value);
+            const from = fromUnit.value;
+            const to = toUnit.value;
+
+            if (isNaN(temperature)) {
+                alert('Please enter a valid temperature!');
+                return;
+            }
+
+            let result = 0;
+
+            if (from === to) {
+                result = temperature;
+            } else if (from === 'C' && to === 'F') {
+                result = (temperature * 9) / 5 + 32;
+            } else if (from === 'C' && to === 'K') {
+                result = temperature + 273.15;
+            } else if (from === 'F' && to === 'C') {
+                result = ((temperature - 32) * 5) / 9;
+            } else if (from === 'F' && to === 'K') {
+                result = ((temperature - 32) * 5) / 9 + 273.15;
+            } else if (from === 'K' && to === 'C') {
+                result = temperature - 273.15;
+            } else if (from === 'K' && to === 'F') {
+                result = ((temperature - 273.15) * 9) / 5 + 32;
+            }
+
+            resultDisplay.textContent = result.toFixed(2);
+        });
+
+    </script>
+</body>
+
+</html>

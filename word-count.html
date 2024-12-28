@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        /* Container Styling */
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        /* Header Styling */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-top: 10px;
+        }
+
+        .header i {
+            font-size: 2.5rem;
+            color: #74ebd5;
+            animation: rotateIcon 2s infinite;
+        }
+
+        /* Textarea Styling */
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            font-size: 1rem;
+            border: 2px solid #74ebd5;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        textarea:focus {
+            border-color: #acb6e5;
+            box-shadow: 0 0 10px rgba(116, 235, 213, 0.5);
+        }
+
+        /* Output Box Styling */
+        .output {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .output-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f4f4f4;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 48%;
+            animation: slideIn 1s ease-out;
+        }
+
+        .output-box i {
+            font-size: 1.5rem;
+            color: #74ebd5;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes rotateIcon {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <i class="fa-solid fa-pen-fancy"></i>
+            <h1>Word Counter Tool</h1>
+        </div>
+        <textarea id="text-area" placeholder="Start typing or paste your text here..."></textarea>
+        <div class="output">
+            <div class="output-box">
+                <i class="fa-solid fa-word"></i>
+                <p><strong>Word Count:</strong> <span id="word-count">0</span></p>
+            </div>
+            <div class="output-box">
+                <i class="fa-solid fa-font"></i>
+                <p><strong>Character Count:</strong> <span id="char-count">0</span></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const textArea = document.getElementById('text-area');
+        const wordCount = document.getElementById('word-count');
+        const charCount = document.getElementById('char-count');
+
+        textArea.addEventListener('input', () => {
+            const text = textArea.value.trim();
+            const words = text.length > 0 ? text.split(/\s+/).length : 0;
+            const chars = text.length;
+
+            wordCount.textContent = words;
+            charCount.textContent = chars;
+        });
+
+    </script>
+</body>
+
+</html>
